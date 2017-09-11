@@ -68,7 +68,7 @@ wordOcr = wordOcr.filter(function(word, rank){
 
 
   console.log("top 5 with under 2 removed :-")
-for (var i = 0, len = wordOcr.length; i < 6; i++)
+for (var i = 0, len = wordOcr.length; i < 5; i++)
 {
     // If the length of the word is more than one put in new array and is more than 2 characters.
     console.log(wordOcr[i][0]);
