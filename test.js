@@ -53,7 +53,7 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
     return word[0].length != "";
   });
 
-  console.log("Number of words after cleaning out 2 letter words and characters not required." + wordOcr.length);
+  console.log("Number of words in the text after grouping:- " + wordOcr.length);
 
   // sort the list by order.
   wordOcr = wordOcr.sort(sortMultiDimensional);
@@ -69,7 +69,7 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
   });
 
 
-  console.log("top 5 with under 2 removed :-")
+  console.log("top 5 with under 2 char words removed :- ")
   for (var i = 0, len = wordOcr.length; i < 5; i++) {
     // If the length of the word is more than one put in new array and is more than 2 characters.
     console.log(wordOcr[i][0]);
