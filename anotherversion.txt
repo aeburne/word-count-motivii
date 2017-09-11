@@ -1,0 +1,92 @@
+var request = require('request');
+var splitArr =[];
+var wordOcr = [,];
+var arrPos;
+
+
+request('http://www.gutenberg.org/files/974/974-0.txt', { ds: false }, (err, res, body) => {
+  if (err) { return console.log(err); }
+  
+  // Display the text
+  // console.log(body);
+  // Need to clean up this string before we can find words
+  splitArr = proccessStr(body).split(" ").sort();
+
+  // Count before the filtering of words.
+  console.log("The number of words before filtering is :- " + splitArr.length);
+
+  // Loop ordered words
+ for (var i = 0, len = splitArr.length; i < len; i++) {
+  var value = splitArr[i].trim().toLowerCase();
+
+  // If the length of the word is more than one put in new array
+  if(value.length > 2)
+  {
+    var word = wordOcr.filter(function(word, rank){
+      return word[0] == value;});
+    
+    if(word.length > 0)
+    {
+     arrPos = wordOcr.filter( function( el ) {
+        return !!~el.indexOf( value )});
+    }
+
+    if(word.length == 0)
+    {
+      // console.log(wordOcr.findIndex(splitArr[i]));
+      wordOcr.push([value,1]);
+    }
+    else
+    {
+      var pos = wordOcr.indexOf(arrPos[0,0],arrPos[0,1]);
+
+      wordOcr[pos][1] = wordOcr[pos][1] +1;
+    }
+  }
+}
+
+console.log("Number of words after cleaning out 2 letter words and characters not required." + wordOcr.length);
+
+//wordOcr = wordOcr.sort(function(a,b){
+//  return a[1] - b[1];
+//});
+
+for (var i = 0, len = wordOcr.length; i < len; i++)
+{
+  console.log(wordOcr[i][0] + " " + wordOcr[i][1]);
+}
+
+});
+
+
+// Process 2
+function proccessStr(text) {
+  var specialChars = "!@#$^&%*()+=-[]\/{}|:<>?,.";
+  // strip the string down.
+  text = text.trim();
+  text = text.replace("\\" + specialChars /"gi", '');
+  text = text.replace(/[0-9]/g, ' ');
+  text = text.replace(/”/g, '');
+  text = text.replace(/“/g, '');
+  text = text.replace(/’/g, '');
+  text = text.replace(/‘/g, '');
+  text = text.replace(/"/g, '');
+  text = text.replace(/\n/g, ' ');
+  text = text.replace(/\r/g, ' ');
+  text = text.replace(/;/g, '');
+  text = text.replace(/!/g, '');
+  text = text.replace(/,/g, '');
+  text = text.replace(/\./g, '');
+  text = text.replace(/\*/g, '');
+  text = text.replace(/\$/g, '');
+  text = text.replace(/\)/g, '');
+  text = text.replace(/\(/g, '');
+  text = text.replace(/\?/g, '');
+  text = text.replace(/\]/g, '');
+  text = text.replace(/\[/g, '');
+  text = text.replace(/\:/g, '');
+  text = text.replace(/\#/g, '');
+  return text;
+}
+
+
