@@ -16,6 +16,11 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
   // Need to clean up this string before we can find words
   splitArr = proccessStr(body).split(" ").sort();
 
+  // Trim out empty space before we loop
+  splitArr = splitArr.filter(function (word) {
+    return word != "";
+  });
+
   // Count before the filtering of words.
   console.log("The number of words before filtering is :- " + splitArr.length);
 
@@ -50,7 +55,7 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
 
   // Filter empty chars out.
   wordOcr = wordOcr.filter(function (word, rank) {
-    return word[0].length != "";
+    return word[0] != "";
   });
 
   console.log("Number of words in the text after grouping:- " + wordOcr.length);
