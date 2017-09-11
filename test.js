@@ -25,10 +25,10 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
 
     // see if they already exist in ranked list
     var inList = wordOcr.filter(function (word2, rank) {
-      return word2[0] == value;
+      return word2[0] === value;
     });
 
-    if (inList.length == 0) {
+    if (inList.length === 0) {
       var firstPos = splitArr.indexOf(value);
       var occurences = 0;
 
@@ -36,7 +36,7 @@ request('http://www.gutenberg.org/files/974/974-0.txt', {
       if (firstPos != -1) {
         // Count the occurences and then 
         for (var n = firstPos, len = splitArr.length; n < len; n++) {
-          if (splitArr[n].trim().toLowerCase() == value) {
+          if (splitArr[n].trim().toLowerCase() === value) {
             occurences = occurences + 1;
           } else {
             // Add the value to the list
