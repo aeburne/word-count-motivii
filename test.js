@@ -19,10 +19,6 @@ request('http://www.gutenberg.org/files/974/974-0.txt', { ds: false }, (err, res
  for (var i = 0, len = splitArr.length; i < len; i++) {
   var value = splitArr[i].trim().toLowerCase();
 
-  // If the length of the word is more than one put in new array
-  if(value.length > 2)
-  {
- 
     var inList = wordOcr.filter(function(word2, rank){
         return word2[0] == value;});
 
@@ -49,26 +45,35 @@ request('http://www.gutenberg.org/files/974/974-0.txt', { ds: false }, (err, res
   
      
     }
-   
-  }
 }
+
+// Filter empty chars out.
+wordOcr = wordOcr.filter(function(word, rank){
+  return word[0].length != "";});
 
 console.log("Number of words after cleaning out 2 letter words and characters not required." + wordOcr.length);
 
+// Remove the empty.
 wordOcr = wordOcr.sort(sortMultiDimensional);
 
 console.log("top 20 words :-")
-for (var i = 0, len = wordOcr.length; i < 21; i++)
+// Hack at the moment because of the spaces at the top of the list was tryign to filter it out.
+for (var i = 0, len = wordOcr.length; i < 20; i++)
 {
-  console.log(wordOcr[i][0] + " " + wordOcr[i][1]);
+    console.log(wordOcr[i][0] + " " + wordOcr[i][1]); 
 }
+
+// Filter the 2 letter words out.
+wordOcr = wordOcr.filter(function(word, rank){
+  return word[0].length > 2;});
 
 for (var i = 0, len = wordOcr.length; i < 6; i++)
 {
-  console.log(wordOcr[i][0]);
-  var display = '|';
-  display = display.repeat(wordOcr[i][1]);
-  console.log(display);
+    // If the length of the word is more than one put in new array and is more than 2 characters.
+    console.log(wordOcr[i][0]);
+    var display = '|';
+    display = display.repeat(wordOcr[i][1]);
+    console.log(display);
 }
 
 });
