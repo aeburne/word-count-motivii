@@ -15,7 +15,7 @@ request('http://www.gutenberg.org/files/974/974-0.txt', { ds: false }, (err, res
   // Count before the filtering of words.
   console.log("The number of words before filtering is :- " + splitArr.length);
 
-  // Loop ordered words
+  // Loop ordered words.
  for (var i = 0, len = splitArr.length; i < len; i++) {
   var value = splitArr[i].trim().toLowerCase();
 
@@ -53,11 +53,10 @@ wordOcr = wordOcr.filter(function(word, rank){
 
 console.log("Number of words after cleaning out 2 letter words and characters not required." + wordOcr.length);
 
-// Remove the empty.
+// sort the list by order.
 wordOcr = wordOcr.sort(sortMultiDimensional);
 
 console.log("top 20 words :-")
-// Hack at the moment because of the spaces at the top of the list was tryign to filter it out.
 for (var i = 0, len = wordOcr.length; i < 20; i++)
 {
     console.log(wordOcr[i][0] + " " + wordOcr[i][1]); 
@@ -67,6 +66,8 @@ for (var i = 0, len = wordOcr.length; i < 20; i++)
 wordOcr = wordOcr.filter(function(word, rank){
   return word[0].length > 2;});
 
+
+  console.log("top 5 with under 2 removed :-")
 for (var i = 0, len = wordOcr.length; i < 6; i++)
 {
     // If the length of the word is more than one put in new array and is more than 2 characters.
